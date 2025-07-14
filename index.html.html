@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>まさくんの画像サイト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .image-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .image-info {
+            padding: 15px;
+        }
+        .image-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .image-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .tag {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .download-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ まさくんの画像ギャラリー</h1>
+        
+        <input type="text" class="search-box" id="searchInput" placeholder="画像を検索してみよう..." onkeyup="searchImages()">
+        
+        <div class="image-grid" id="imageGrid">
+            <!-- 画像がここに表示されます -->
+        </div>
+    </div>
+
+    <script>
+        // サンプル画像データ
+        const images = [
+            {
+                url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+                title: "美しい山の風景",
+                tags: ["自然", "山", "風景"]
+            },
+            {
+                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+                title: "森の小道",
+                tags: ["森", "自然", "道"]
+            },
+            {
+                url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400",
+                title: "海の夕日",
+                tags: ["海", "夕日", "風景"]
+            },
+            {
+                url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400",
+                title: "星空の夜",
+                tags: ["星", "夜", "自然"]
+            }
+        ];
+
+        // 画像を表示する関数
+        function displayImages(imagesToShow) {
+            const grid = document.getElementById('imageGrid');
+            grid.innerHTML = '';
+            
+            imagesToShow.forEach(image => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.innerHTML = `
+                    <img src="${image.url}" alt="${image.title}">
+                    <div class="image-info">
+                        <div class="image-title">${image.title}</div>
+                        <div class="image-tags">
+                            ${image.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <button class="download-btn" onclick="downloadImage('${image.url}')">ダウンロード</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 検索機能
+        function searchImages() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredImages = images.filter(image => 
+                image.title.toLowerCase().includes(searchTerm) ||
+                image.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            displayImages(filteredImages);
+        }
+
+        // ダウンロード機能（仮）
+        function downloadImage(url) {
+            alert('ダウンロード機能は後で実装するよ！URL: ' + url);
+        }
+
+        // 初期表示
+        displayImages(images);
+    </script>
+</body>
+</html>
