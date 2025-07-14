@@ -6,7 +6,6 @@
     <title>無料高画質壁紙ダウンロード | AI美少女イラスト | まさくんギャラリー</title>
     <meta name="description" content="高品質なAI生成美少女イラストを無料ダウンロード。スマホ壁紙、PCデスクトップ壁紙として使える画像が満載。">
     <meta name="keywords" content="AI イラスト, 美少女, 壁紙, 無料, ダウンロード, かわいい, 萌え">
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,6 +84,11 @@
         .download-btn:hover {
             background-color: #45a049;
         }
+        .image-stats {
+            font-size: 12px;
+            color: #666;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -92,21 +96,86 @@
         <h1>🖼️ まさくんの画像ギャラリー</h1>
         
         <input type="text" class="search-box" id="searchInput" placeholder="画像を検索してみよう..." onkeyup="searchImages()">
+        
         <div style="text-align: center; margin: 20px 0;">
-    <button onclick="filterByCategory('すべて')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">すべて</button>
-    <button onclick="filterByCategory('風景')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">風景</button>
-    <button onclick="filterByCategory('自然')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">自然</button>
-    <button onclick="sortByPopularity()" style="margin: 5px; padding: 8px 16px; border: none; background: #ffecb3; color: #f57c00; border-radius: 20px; cursor: pointer;">🔥 人気順</button>
-</div>
-
+            <button onclick="filterByCategory('すべて')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">すべて</button>
+            <button onclick="filterByCategory('風景')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">風景</button>
+            <button onclick="filterByCategory('自然')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">自然</button>
+            <button onclick="sortByPopularity()" style="margin: 5px; padding: 8px 16px; border: none; background: #ffecb3; color: #f57c00; border-radius: 20px; cursor: pointer;">🔥 人気順</button>
+        </div>
+        
         <div class="image-grid" id="imageGrid">
             <!-- 画像がここに表示されます -->
         </div>
     </div>
 
     <script>
-        // サンプル画像データ
-        undefined
+        // カテゴリー定義
+        const categories = ['すべて', '風景', '自然', 'ファンタジー', 'かわいい'];
+        let currentCategory = 'すべて';
+
+        // 画像データ（ビュー数とカテゴリーを追加）
+        const images = [
+            {
+                url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+                title: "美しい山の風景",
+                tags: ["自然", "山", "風景"],
+                category: "風景",
+                views: 1250,
+                downloads: 89
+            },
+            {
+                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+                title: "森の小道",
+                tags: ["森", "自然", "道"],
+                category: "自然",
+                views: 980,
+                downloads: 67
+            },
+            {
+                url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400",
+                title: "海の夕日",
+                tags: ["海", "夕日", "風景"],
+                category: "風景",
+                views: 2100,
+                downloads: 156
+            },
+            {
+                url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400",
+                title: "星空の夜",
+                tags: ["星", "夜", "自然"],
+                category: "自然",
+                views: 3200,
+                downloads: 234
+            }
+        ];
+
+        // 人気順にソート
+        function sortByPopularity() {
+            const sortedImages = [...images].sort((a, b) => b.views - a.views);
+            displayImages(sortedImages);
+        }
+
+        // カテゴリーフィルター
+        function filterByCategory(category) {
+            currentCategory = category;
+            if (category === 'すべて') {
+                displayImages(images);
+            } else {
+                const filtered = images.filter(img => img.category === category);
+                displayImages(filtered);
+            }
+        }
+
+        // ダウンロード追跡
+        function downloadImage(url, title) {
+            // ダウンロード数を増やす
+            const image = images.find(img => img.url === url);
+            if (image) {
+                image.downloads += 1;
+                alert(`「${title}」をダウンロードしました！\n累計ダウンロード数: ${image.downloads}`);
+            }
+        }
 
         // 画像を表示する関数
         function displayImages(imagesToShow) {
@@ -120,10 +189,15 @@
                     <img src="${image.url}" alt="${image.title}">
                     <div class="image-info">
                         <div class="image-title">${image.title}</div>
+                        <div class="image-stats">
+                            👁 ${image.views} views | 💾 ${image.downloads} downloads
+                        </div>
                         <div class="image-tags">
                             ${image.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
-                        <button class="download-btn" onclick="downloadImage('${image.url}')">ダウンロード</button>
+                        <button class="download-btn" onclick="downloadImage('${image.url}', '${image.title}')">
+                            ダウンロード (${image.downloads})
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -138,11 +212,6 @@
                 image.tags.some(tag => tag.toLowerCase().includes(searchTerm))
             );
             displayImages(filteredImages);
-        }
-
-        // ダウンロード機能（仮）
-        function downloadImage(url) {
-            alert('ダウンロード機能は後で実装するよ！URL: ' + url);
         }
 
         // 初期表示
