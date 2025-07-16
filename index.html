@@ -3,50 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無料高画質壁紙ダウンロード | AI美少女イラスト | まさくんギャラリー</title>
-    <meta name="description" content="高品質なAI生成美少女イラストを無料ダウンロード。スマホ壁紙、PCデスクトップ壁紙として使える画像が満載。">
-    <meta name="keywords" content="AI イラスト, 美少女, 壁紙, 無料, ダウンロード, かわいい, 萌え">
+    <title>AI画像検索エンジン＆漫画作成 | まさくんギャラリー</title>
+    <meta name="description" content="AI生成画像を検索して、オリジナル漫画を作成！無料で使える画像検索エンジン。">
+    <meta name="keywords" content="AI イラスト, 画像検索, 漫画作成, AIアート, 無料, ダウンロード">
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            background-color: #f0f2f5;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #333;
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .mode-switch {
             text-align: center;
-            margin-bottom: 30px;
+            margin: 20px 0;
         }
-        .search-box {
-            width: 100%;
-            padding: 15px;
+        .mode-btn {
+            padding: 12px 30px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 25px;
             font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .mode-btn.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        .mode-btn:not(.active) {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        /* 検索セクション */
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
+        .search-main {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .search-btn {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .filter-group label {
+            font-weight: bold;
+            color: #555;
+        }
+        .filter-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .tag-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .tag-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        /* 画像グリッド */
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
+            margin-bottom: 30px;
         }
         .image-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background: white;
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
         }
         .image-card:hover {
             transform: translateY(-5px);
+        }
+        .image-card.selected {
+            border: 3px solid #667eea;
         }
         .image-card img {
             width: 100%;
@@ -58,126 +153,439 @@
         }
         .image-title {
             font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .image-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-        .tag {
-            background-color: #e3f2fd;
-            color: #1976d2;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-        .download-btn {
-            background-color: #4caf50;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .download-btn:hover {
-            background-color: #45a049;
+            margin-bottom: 5px;
         }
         .image-stats {
             font-size: 12px;
             color: #666;
             margin: 5px 0;
         }
+        .image-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        .select-for-manga {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .image-card:hover .select-for-manga {
+            opacity: 1;
+        }
+        
+        /* 漫画作成セクション */
+        .manga-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .manga-section.active {
+            display: block;
+        }
+        .layout-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .layout-option {
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .layout-option:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+        .layout-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .manga-canvas {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 500px;
+            position: relative;
+            background: #fafafa;
+        }
+        .manga-4koma {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .manga-panel {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 5px;
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        .panel-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 14px;
+        }
+        .panel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .dialogue-bubble {
+            position: absolute;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            max-width: 150px;
+            font-size: 14px;
+            cursor: move;
+        }
+        .selected-images {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .selected-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: grab;
+        }
+        .dialogue-controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .dialogue-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .export-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .export-btn {
+            padding: 15px 40px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .filters {
+                grid-template-columns: 1fr;
+            }
+            .image-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>🔍🎨 AI画像検索エンジン＆漫画作成ツール</h1>
+        <p>画像を検索して、オリジナル漫画を作ろう！</p>
+    </div>
+
     <div class="container">
-        <h1>🖼️ まさくんの画像ギャラリー</h1>
-        
-        <input type="text" class="search-box" id="searchInput" placeholder="画像を検索してみよう..." onkeyup="searchImages()">
-        
-        <div style="text-align: center; margin: 20px 0;">
-            <button onclick="filterByCategory('すべて')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">すべて</button>
-            <button onclick="filterByCategory('風景')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">風景</button>
-            <button onclick="filterByCategory('自然')" style="margin: 5px; padding: 8px 16px; border: none; background: #e3f2fd; color: #1976d2; border-radius: 20px; cursor: pointer;">自然</button>
-            <button onclick="sortByPopularity()" style="margin: 5px; padding: 8px 16px; border: none; background: #ffecb3; color: #f57c00; border-radius: 20px; cursor: pointer;">🔥 人気順</button>
+        <!-- モード切り替え -->
+        <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('search')">🔍 画像検索モード</button>
+            <button class="mode-btn" onclick="switchMode('manga')">📚 漫画作成モード</button>
         </div>
-        
-        <div class="image-grid" id="imageGrid">
-            <!-- 画像がここに表示されます -->
+
+        <!-- 検索セクション -->
+        <div class="search-section" id="searchSection">
+            <h2>🔍 画像を検索</h2>
+            
+            <div class="search-main">
+                <input type="text" class="search-input" id="searchInput" placeholder="キーワードを入力...（例：美少女、風景、ファンタジー）">
+                <button class="search-btn" onclick="performSearch()">検索</button>
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label>スタイル</label>
+                    <select id="styleFilter">
+                        <option value="">すべて</option>
+                        <option value="anime">アニメ</option>
+                        <option value="realistic">リアル</option>
+                        <option value="fantasy">ファンタジー</option>
+                        <option value="cyberpunk">サイバーパンク</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>カラー</label>
+                    <select id="colorFilter">
+                        <option value="">すべて</option>
+                        <option value="colorful">カラフル</option>
+                        <option value="monochrome">モノクロ</option>
+                        <option value="pastel">パステル</option>
+                        <option value="dark">ダーク</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>カテゴリー</label>
+                    <select id="categoryFilter">
+                        <option value="">すべて</option>
+                        <option value="character">キャラクター</option>
+                        <option value="landscape">風景</option>
+                        <option value="object">オブジェクト</option>
+                        <option value="abstract">抽象</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tag-filters">
+                <label class="tag-checkbox">
+                    <input type="checkbox" value="美少女"> 美少女
+                </label>
+                <label class="tag-checkbox">
+                    <input type="checkbox" value="ファンタジー"> ファンタジー
+                </label>
+                <label class="tag-checkbox">
+                    <input type="checkbox" value="風景"> 風景
+                </label>
+                <label class="tag-checkbox">
+                    <input type="checkbox" value="動物"> 動物
+                </label>
+                <label class="tag-checkbox">
+                    <input type="checkbox" value="SF"> SF
+                </label>
+            </div>
+        </div>
+
+        <!-- 画像グリッド -->
+        <div class="image-grid" id="imageGrid"></div>
+
+        <!-- 漫画作成セクション -->
+        <div class="manga-section" id="mangaSection">
+            <h2>📚 漫画を作成</h2>
+
+            <!-- 選択した画像 -->
+            <div class="selected-images" id="selectedImages">
+                <p style="color: #999;">選択した画像がここに表示されます</p>
+            </div>
+
+            <!-- レイアウト選択 -->
+            <div class="layout-selector">
+                <div class="layout-option selected" onclick="selectLayout('4koma')">
+                    <h3>4コマ漫画</h3>
+                    <p>縦4コマの定番スタイル</p>
+                </div>
+                <div class="layout-option" onclick="selectLayout('2x2')">
+                    <h3>2×2レイアウト</h3>
+                    <p>4つのパネル</p>
+                </div>
+                <div class="layout-option" onclick="selectLayout('free')">
+                    <h3>フリースタイル</h3>
+                    <p>自由にレイアウト</p>
+                </div>
+            </div>
+
+            <!-- 漫画キャンバス -->
+            <div class="manga-canvas" id="mangaCanvas">
+                <div class="manga-4koma" id="mangaPanels">
+                    <div class="manga-panel" ondrop="dropImage(event, 0)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 1)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 2)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 3)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- セリフ追加 -->
+            <div class="dialogue-controls">
+                <input type="text" class="dialogue-input" id="dialogueInput" placeholder="セリフを入力...">
+                <button class="search-btn" onclick="addDialogue()">セリフを追加</button>
+            </div>
+
+            <!-- エクスポート -->
+            <div class="export-section">
+                <button class="export-btn" onclick="exportManga()">💾 漫画を保存</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // カテゴリー定義
-        const categories = ['すべて', '風景', '自然', 'ファンタジー', 'かわいい'];
-        let currentCategory = 'すべて';
-
-        // 画像データ（ビュー数とカテゴリーを追加）
+        // 画像データベース（拡張版）
         const images = [
             {
+                id: 1,
                 url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
                 title: "美しい山の風景",
                 tags: ["自然", "山", "風景"],
-                category: "風景",
+                category: "landscape",
+                style: "realistic",
+                color: "colorful",
                 views: 1250,
                 downloads: 89
             },
             {
-                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
-                title: "森の小道",
-                tags: ["森", "自然", "道"],
-                category: "自然",
-                views: 980,
-                downloads: 67
+                id: 2,
+                url: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400",
+                title: "アニメ風イラスト",
+                tags: ["アニメ", "イラスト", "美少女"],
+                category: "character",
+                style: "anime",
+                color: "colorful",
+                views: 3200,
+                downloads: 234
             },
             {
+                id: 3,
                 url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400",
                 title: "海の夕日",
                 tags: ["海", "夕日", "風景"],
-                category: "風景",
+                category: "landscape",
+                style: "realistic",
+                color: "colorful",
                 views: 2100,
                 downloads: 156
             },
             {
+                id: 4,
+                url: "https://images.unsplash.com/photo-1493514789931-586cb221d7a7?w=400",
+                title: "宇宙の神秘",
+                tags: ["宇宙", "星", "ファンタジー"],
+                category: "abstract",
+                style: "fantasy",
+                color: "dark",
+                views: 5000,
+                downloads: 400
+            },
+            {
+                id: 5,
+                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+                title: "森の小道",
+                tags: ["森", "自然", "道"],
+                category: "landscape",
+                style: "realistic",
+                color: "colorful",
+                views: 980,
+                downloads: 67
+            },
+            {
+                id: 6,
                 url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400",
                 title: "星空の夜",
                 tags: ["星", "夜", "自然"],
-                category: "自然",
+                category: "landscape",
+                style: "realistic",
+                color: "dark",
                 views: 3200,
                 downloads: 234
             }
         ];
 
-        // 人気順にソート
-        function sortByPopularity() {
-            const sortedImages = [...images].sort((a, b) => b.views - a.views);
-            displayImages(sortedImages);
-        }
+        // 選択された画像
+        let selectedImages = [];
+        let currentMode = 'search';
+        let currentLayout = '4koma';
 
-        // カテゴリーフィルター
-        function filterByCategory(category) {
-            currentCategory = category;
-            if (category === 'すべて') {
-                displayImages(images);
+        // 初期表示
+        displayImages(images);
+
+        // モード切り替え
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (mode === 'search') {
+                document.getElementById('searchSection').style.display = 'block';
+                document.getElementById('imageGrid').style.display = 'grid';
+                document.getElementById('mangaSection').classList.remove('active');
             } else {
-                const filtered = images.filter(img => img.category === category);
-                displayImages(filtered);
+                document.getElementById('searchSection').style.display = 'none';
+                document.getElementById('imageGrid').style.display = 'none';
+                document.getElementById('mangaSection').classList.add('active');
+                updateSelectedImagesDisplay();
             }
         }
 
-        // ダウンロード追跡
-        function downloadImage(url, title) {
-            // ダウンロード数を増やす
-            const image = images.find(img => img.url === url);
-            if (image) {
-                image.downloads += 1;
-                alert(`「${title}」をダウンロードしました！\n累計ダウンロード数: ${image.downloads}`);
+        // 画像検索
+        function performSearch() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const style = document.getElementById('styleFilter').value;
+            const color = document.getElementById('colorFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            const selectedTags = Array.from(document.querySelectorAll('.tag-checkbox input:checked')).map(cb => cb.value);
+            
+            let results = images;
+            
+            // キーワード検索
+            if (keyword) {
+                results = results.filter(img => 
+                    img.title.toLowerCase().includes(keyword) ||
+                    img.tags.some(tag => tag.toLowerCase().includes(keyword))
+                );
             }
+            
+            // フィルター適用
+            if (style) results = results.filter(img => img.style === style);
+            if (color) results = results.filter(img => img.color === color);
+            if (category) results = results.filter(img => img.category === category);
+            
+            // タグフィルター
+            if (selectedTags.length > 0) {
+                results = results.filter(img =>
+                    selectedTags.some(tag => img.tags.includes(tag))
+                );
+            }
+            
+            displayImages(results);
         }
 
-        // 画像を表示する関数
+        // 画像表示
         function displayImages(imagesToShow) {
             const grid = document.getElementById('imageGrid');
             grid.innerHTML = '';
@@ -185,8 +593,15 @@
             imagesToShow.forEach(image => {
                 const card = document.createElement('div');
                 card.className = 'image-card';
+                if (selectedImages.find(img => img.id === image.id)) {
+                    card.classList.add('selected');
+                }
+                
                 card.innerHTML = `
-                    <img src="${image.url}" alt="${image.title}">
+                    <img src="${image.url}" alt="${image.title}" draggable="true" ondragstart="dragStart(event, ${image.id})">
+                    <button class="select-for-manga" onclick="toggleImageSelection(${image.id})">
+                        ${selectedImages.find(img => img.id === image.id) ? '✓ 選択中' : '+ 選択'}
+                    </button>
                     <div class="image-info">
                         <div class="image-title">${image.title}</div>
                         <div class="image-stats">
@@ -195,27 +610,167 @@
                         <div class="image-tags">
                             ${image.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
-                        <button class="download-btn" onclick="downloadImage('${image.url}', '${image.title}')">
-                            ダウンロード (${image.downloads})
-                        </button>
                     </div>
                 `;
+                
                 grid.appendChild(card);
             });
         }
 
-        // 検索機能
-        function searchImages() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filteredImages = images.filter(image => 
-                image.title.toLowerCase().includes(searchTerm) ||
-                image.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-            );
-            displayImages(filteredImages);
+        // 画像選択
+        function toggleImageSelection(imageId) {
+            const image = images.find(img => img.id === imageId);
+            const index = selectedImages.findIndex(img => img.id === imageId);
+            
+            if (index > -1) {
+                selectedImages.splice(index, 1);
+            } else {
+                selectedImages.push(image);
+            }
+            
+            displayImages(images);
+            updateSelectedImagesDisplay();
         }
 
-        // 初期表示
-        displayImages(images);
+        // 選択画像表示更新
+        function updateSelectedImagesDisplay() {
+            const container = document.getElementById('selectedImages');
+            if (selectedImages.length === 0) {
+                container.innerHTML = '<p style="color: #999;">選択した画像がここに表示されます</p>';
+                return;
+            }
+            
+            container.innerHTML = selectedImages.map(img => `
+                <img src="${img.url}" alt="${img.title}" class="selected-image" 
+                     draggable="true" ondragstart="dragStart(event, ${img.id})">
+            `).join('');
+        }
+
+        // レイアウト選択
+        function selectLayout(layout) {
+            currentLayout = layout;
+            document.querySelectorAll('.layout-option').forEach(opt => opt.classList.remove('selected'));
+            event.target.closest('.layout-option').classList.add('selected');
+            
+            const canvas = document.getElementById('mangaPanels');
+            
+            if (layout === '4koma') {
+                canvas.className = 'manga-4koma';
+                canvas.innerHTML = `
+                    <div class="manga-panel" ondrop="dropImage(event, 0)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 1)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 2)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 3)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                `;
+            } else if (layout === '2x2') {
+                canvas.style.display = 'grid';
+                canvas.style.gridTemplateColumns = '1fr 1fr';
+                canvas.style.maxWidth = '600px';
+                canvas.innerHTML = `
+                    <div class="manga-panel" ondrop="dropImage(event, 0)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 1)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 2)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                    <div class="manga-panel" ondrop="dropImage(event, 3)" ondragover="allowDrop(event)">
+                        <div class="panel-placeholder">画像をドロップ</div>
+                    </div>
+                `;
+            }
+        }
+
+        // ドラッグ&ドロップ
+        let draggedImageId = null;
+
+        function dragStart(event, imageId) {
+            draggedImageId = imageId;
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dropImage(event, panelIndex) {
+            event.preventDefault();
+            const panel = event.target.closest('.manga-panel');
+            const image = images.find(img => img.id === draggedImageId);
+            
+            if (image && panel) {
+                panel.innerHTML = `<img src="${image.url}" alt="${image.title}" class="panel-image">`;
+            }
+        }
+
+        // セリフ追加
+        function addDialogue() {
+            const text = document.getElementById('dialogueInput').value;
+            if (!text) return;
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'dialogue-bubble';
+            bubble.textContent = text;
+            bubble.style.top = '20px';
+            bubble.style.left = '20px';
+            
+            // ドラッグ可能にする
+            makeDraggable(bubble);
+            
+            document.getElementById('mangaCanvas').appendChild(bubble);
+            document.getElementById('dialogueInput').value = '';
+        }
+
+        // 要素をドラッグ可能にする
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        // 漫画をエクスポート
+        function exportManga() {
+            alert('漫画の保存機能は準備中です！\n\n現在は画面のスクリーンショットを撮って保存してください。');
+            // 将来的にはhtml2canvasなどを使って画像として保存
+        }
+
+        // Enterキーで検索
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') performSearch();
+        });
     </script>
 </body>
 </html>
