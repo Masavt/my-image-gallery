@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forbidden Stories v3 - Ultimate Femdom Experience Engine</title>
-    <meta name="description" content="Every session, a new door opens. AI-powered immersive femdom stories.">
+    <title>Forbidden Stories v3 ULTIMATE - Infinite Femdom Experience Engine</title>
+    <meta name="description" content="Every session, a new door opens. Multi-source AI-powered immersive femdom stories.">
     
     <!-- Critical CSS -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@300;500;700&display=swap');
         
         :root {
             --blood: #8B0000;
@@ -19,6 +19,7 @@
             --venom: #ff1744;
             --latex: #1a1a1a;
             --chain: #c0c0c0;
+            --pulse: #ff0040;
         }
         
         * {
@@ -31,14 +32,14 @@
         body {
             background: var(--void);
             color: var(--bone);
-            font-family: 'Crimson Text', serif;
+            font-family: 'Crimson Text', 'Noto Sans JP', serif;
             overflow: hidden;
             position: relative;
             height: 100vh;
             cursor: none;
         }
         
-        /* Custom Cursor */
+        /* Custom Cursor with Trail */
         .cursor {
             width: 20px;
             height: 20px;
@@ -49,6 +50,26 @@
             transition: all 0.1s ease;
             z-index: 10000;
             mix-blend-mode: difference;
+        }
+        
+        .cursor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--venom);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: cursor-pulse 2s infinite;
+        }
+        
+        @keyframes cursor-pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
         }
         
         .cursor.active {
@@ -66,7 +87,7 @@
             overflow: hidden;
         }
         
-        /* Scene Viewer */
+        /* Scene Viewer with Advanced Layering */
         .scene-viewer {
             flex: 1;
             position: relative;
@@ -82,16 +103,28 @@
             height: 100%;
         }
         
-        /* Background Layer */
+        /* Background Layer with Parallax */
         .bg-layer {
             z-index: 1;
             filter: blur(2px) brightness(0.3);
             transform: scale(1.1);
+            transition: transform 10s ease;
+        }
+        
+        .bg-layer.active {
+            transform: scale(1.15) translateX(-2%);
+        }
+        
+        /* Composite Layer for Blending */
+        .composite-layer {
+            z-index: 2;
+            mix-blend-mode: screen;
+            opacity: 0.3;
         }
         
         /* Main Subject Layer */
         .subject-layer {
-            z-index: 2;
+            z-index: 3;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -103,6 +136,11 @@
             object-fit: contain;
             filter: contrast(1.2) saturate(0.9);
             animation: breathe 4s ease-in-out infinite;
+            transition: filter 0.5s ease;
+        }
+        
+        .subject-image.intense {
+            filter: contrast(1.5) saturate(1.2) hue-rotate(10deg);
         }
         
         @keyframes breathe {
@@ -110,9 +148,9 @@
             50% { transform: scale(1.02); }
         }
         
-        /* Effects Layer */
+        /* Effects Layer with Dynamic Patterns */
         .effects-layer {
-            z-index: 3;
+            z-index: 4;
             pointer-events: none;
             background: 
                 radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.8) 100%),
@@ -126,9 +164,9 @@
             mix-blend-mode: multiply;
         }
         
-        /* Text Layer */
+        /* Text Layer with Advanced Typography */
         .text-layer {
-            z-index: 4;
+            z-index: 5;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -156,28 +194,44 @@
             font-weight: 700;
             font-style: italic;
             text-shadow: 0 0 20px rgba(255,23,68,0.5);
+            animation: command-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes command-glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255,23,68,0.5); }
+            50% { text-shadow: 0 0 30px rgba(255,23,68,0.8), 0 0 40px rgba(255,23,68,0.4); }
         }
         
         .whisper-text {
             opacity: 0.7;
             font-style: italic;
+            font-size: 0.9em;
         }
         
-        /* Control Panel */
+        .intense-text {
+            font-size: 1.4em;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            animation: shake 0.3s ease infinite;
+        }
+        
+        /* Control Panel Enhanced */
         .control-panel {
-            width: 300px;
-            background: var(--ash);
+            width: 320px;
+            background: linear-gradient(to right, var(--ash), rgba(26,26,26,0.95));
             border-left: 1px solid var(--blood);
             display: flex;
             flex-direction: column;
             position: relative;
             z-index: 100;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
         }
         
-        /* Intensity Dial */
+        /* Intensity Dial with Visual Feedback */
         .intensity-dial {
             padding: 30px;
             border-bottom: 1px solid rgba(139,0,0,0.3);
+            position: relative;
         }
         
         .dial-container {
@@ -202,6 +256,14 @@
             box-shadow: 
                 inset 0 0 30px rgba(0,0,0,0.8),
                 0 0 40px rgba(139,0,0,0.5);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .dial:active {
+            cursor: grabbing;
+            box-shadow: 
+                inset 0 0 40px rgba(0,0,0,0.9),
+                0 0 60px rgba(255,23,68,0.8);
         }
         
         .dial-center {
@@ -230,7 +292,27 @@
             opacity: 0.8;
         }
         
-        /* Choice Buttons */
+        .intensity-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .intensity-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(139,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .intensity-dot.active {
+            background: var(--venom);
+            box-shadow: 0 0 10px var(--venom);
+        }
+        
+        /* Choice Buttons with Danger Levels */
         .choices-container {
             flex: 1;
             padding: 30px;
@@ -283,7 +365,17 @@
             background: var(--venom);
         }
         
-        /* Progress Ring */
+        .choice-btn.extreme {
+            border-color: var(--pulse);
+            animation: danger-pulse 1s ease infinite;
+        }
+        
+        @keyframes danger-pulse {
+            0%, 100% { box-shadow: 0 0 0 rgba(255,0,64,0); }
+            50% { box-shadow: 0 0 20px rgba(255,0,64,0.8); }
+        }
+        
+        /* Progress Ring Enhanced */
         .progress-ring {
             position: absolute;
             top: 20px;
@@ -310,64 +402,126 @@
             transition: stroke-dasharray 0.5s ease;
         }
         
-        /* Vibration Sync Bar */
+        /* Vibration Sync Bar with Waveform */
         .vibration-bar {
             position: absolute;
             bottom: 30px;
             left: 30px;
-            right: 330px;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
+            right: 350px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
         
-        .vibration-fill {
+        .vibration-waveform {
+            display: flex;
+            align-items: center;
             height: 100%;
-            background: linear-gradient(90deg, var(--venom) 0%, var(--blood) 100%);
-            width: 0%;
-            transition: width 0.2s ease;
+            padding: 0 20px;
+            gap: 2px;
         }
         
-        /* Fetish Score Display */
+        .wave-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--venom);
+            border-radius: 2px;
+            transform-origin: center;
+            animation: wave 1s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(8); }
+        }
+        
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+        
+        /* Fetish Score Display Enhanced */
         .fetish-scores {
             position: absolute;
             top: 100px;
             left: 30px;
-            background: rgba(0,0,0,0.8);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.9);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139,0,0,0.3);
             display: none;
+            min-width: 250px;
         }
         
         .fetish-scores.active {
             display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .fetish-scores h3 {
+            margin-bottom: 20px;
+            color: var(--venom);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9em;
         }
         
         .score-item {
             display: flex;
             justify-content: space-between;
-            margin: 10px 0;
-            opacity: 0.8;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .score-label {
+            font-size: 0.9em;
+            text-transform: capitalize;
+            opacity: 0.9;
         }
         
         .score-bar {
-            width: 100px;
-            height: 4px;
+            width: 120px;
+            height: 6px;
             background: rgba(255,255,255,0.1);
             margin-left: 20px;
             position: relative;
-            top: 8px;
+            border-radius: 3px;
+            overflow: hidden;
         }
         
         .score-fill {
             height: 100%;
-            background: var(--venom);
-            transition: width 0.5s ease;
+            background: linear-gradient(to right, var(--blood), var(--venom));
+            transition: width 0.8s ease;
+            border-radius: 3px;
+            position: relative;
         }
         
-        /* Loading Overlay */
+        .score-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4));
+            animation: shine 2s ease infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(140px); }
+        }
+        
+        /* Loading Overlay Ultimate */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -432,6 +586,36 @@
             margin-top: 10px;
         }
         
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 30px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-fill {
+            height: 100%;
+            background: var(--venom);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Image Source Indicator */
+        .source-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .control-panel {
@@ -467,11 +651,26 @@
         }
         
         @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
+            0%, 100% { 
+                transform: translate(0); 
+                filter: hue-rotate(0deg);
+            }
+            20% { 
+                transform: translate(-2px, 2px); 
+                filter: hue-rotate(90deg);
+            }
+            40% { 
+                transform: translate(-2px, -2px); 
+                filter: hue-rotate(180deg);
+            }
+            60% { 
+                transform: translate(2px, 2px); 
+                filter: hue-rotate(270deg);
+            }
+            80% { 
+                transform: translate(2px, -2px); 
+                filter: hue-rotate(360deg);
+            }
         }
         
         .shake {
@@ -484,7 +683,7 @@
             75% { transform: translateX(10px); }
         }
         
-        /* Scanlines Effect */
+        /* Scanlines Effect Enhanced */
         .scanlines {
             position: fixed;
             top: 0;
@@ -493,19 +692,95 @@
             height: 100%;
             pointer-events: none;
             z-index: 15000;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(255,255,255,0.03) 2px,
-                rgba(255,255,255,0.03) 4px
-            );
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.03) 2px,
+                    rgba(255,255,255,0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139,0,0,0.02) 2px,
+                    rgba(139,0,0,0.02) 4px
+                );
             animation: scanlines 8s linear infinite;
         }
         
         @keyframes scanlines {
             0% { transform: translateY(0); }
             100% { transform: translateY(10px); }
+        }
+        
+        /* Completion Screen */
+        .completion-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.95), rgba(139,0,0,0.1));
+            border: 2px solid var(--blood);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 100px rgba(139,0,0,0.5);
+        }
+        
+        .completion-title {
+            font-size: 3em;
+            margin-bottom: 30px;
+            color: var(--venom);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px currentColor; }
+            50% { text-shadow: 0 0 40px currentColor, 0 0 60px currentColor; }
+        }
+        
+        .fetish-result {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        
+        .fetish-result-bar {
+            width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            margin: 10px auto;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .fetish-result-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--blood), var(--venom));
+            transition: width 1s ease;
+        }
+        
+        .next-button {
+            margin-top: 40px;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, var(--blood), var(--venom));
+            border: none;
+            color: white;
+            font-size: 1.4em;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .next-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255,23,68,0.5);
         }
     </style>
 </head>
@@ -524,7 +799,10 @@
             <div class="spiral-strand"></div>
         </div>
         <div class="loading-text">Initializing Neural Pathways...</div>
-        <div class="loading-subtext">Preparing your personalized experience</div>
+        <div class="loading-subtext">Connecting to multiple image sources...</div>
+        <div class="loading-progress">
+            <div class="loading-progress-fill" id="loadingProgress"></div>
+        </div>
     </div>
     
     <!-- Main Experience Container -->
@@ -534,6 +812,11 @@
             <!-- Background Layer -->
             <div class="scene-layer bg-layer">
                 <img id="bgImage" src="" alt="Background" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            
+            <!-- Composite Layer -->
+            <div class="scene-layer composite-layer">
+                <img id="compositeImage" src="" alt="Composite" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             
             <!-- Subject Layer -->
@@ -549,6 +832,9 @@
                 <div class="scene-text" id="sceneText"></div>
             </div>
             
+            <!-- Source Indicator -->
+            <div class="source-indicator" id="sourceIndicator"></div>
+            
             <!-- Progress Ring -->
             <div class="progress-ring">
                 <svg width="60" height="60">
@@ -562,28 +848,55 @@
             
             <!-- Vibration Sync Bar -->
             <div class="vibration-bar">
-                <div class="vibration-fill" id="vibrationFill"></div>
+                <div class="vibration-waveform" id="vibrationWaveform">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
             </div>
             
             <!-- Fetish Scores -->
             <div class="fetish-scores" id="fetishScores">
-                <h3 style="margin-bottom: 15px; color: var(--venom);">Fetish Resonance</h3>
+                <h3>Fetish Resonance</h3>
                 <div class="score-item">
-                    <span>Dominance</span>
+                    <span class="score-label">Dominance</span>
                     <div class="score-bar">
                         <div class="score-fill" id="dominanceScore" style="width: 0%"></div>
                     </div>
                 </div>
                 <div class="score-item">
-                    <span>Bondage</span>
+                    <span class="score-label">Bondage</span>
                     <div class="score-bar">
                         <div class="score-fill" id="bondageScore" style="width: 0%"></div>
                     </div>
                 </div>
                 <div class="score-item">
-                    <span>Humiliation</span>
+                    <span class="score-label">Humiliation</span>
                     <div class="score-bar">
                         <div class="score-fill" id="humiliationScore" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Worship</span>
+                    <div class="score-bar">
+                        <div class="score-fill" id="worshipScore" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Pain</span>
+                    <div class="score-bar">
+                        <div class="score-fill" id="painScore" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Control</span>
+                    <div class="score-bar">
+                        <div class="score-fill" id="controlScore" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
@@ -599,6 +912,13 @@
                     </div>
                 </div>
                 <div class="dial-label">Intensity</div>
+                <div class="intensity-indicators">
+                    <div class="intensity-dot" data-level="1"></div>
+                    <div class="intensity-dot" data-level="2"></div>
+                    <div class="intensity-dot active" data-level="3"></div>
+                    <div class="intensity-dot" data-level="4"></div>
+                    <div class="intensity-dot" data-level="5"></div>
+                </div>
             </div>
             
             <!-- Choice Buttons -->
@@ -610,10 +930,10 @@
 
     <script>
         // ==========================================
-        // FORBIDDEN STORIES V3 - ULTIMATE ENGINE
+        // FORBIDDEN STORIES V3 ULTIMATE - COMPLETE ENGINE
         // ==========================================
         
-        class ForbiddenEngine {
+        class ForbiddenEngineUltimate {
             constructor() {
                 this.state = {
                     intensity: 3,
@@ -636,21 +956,30 @@
                         soft: [50, 100, 50],
                         medium: [100, 50, 100, 50, 100],
                         hard: [200, 100, 200, 100, 200],
-                        climax: [300, 100, 300, 100, 500, 200, 1000]
-                    }
+                        extreme: [300, 100, 300, 100, 500, 200],
+                        climax: [500, 200, 500, 200, 1000, 500, 2000]
+                    },
+                    usedImages: new Set(),
+                    textCorpus: [],
+                    currentSources: []
                 };
                 
+                // Initialize all image sources
                 this.imageSources = {
                     stableDiffusion: new StableDiffusionAPI(),
                     waifuPics: new WaifuPicsAPI(),
+                    e621: new E621API(),
+                    danbooru: new DanbooruAPI(),
                     unsplash: new UnsplashAPI(),
                     composite: new ImageCompositor()
                 };
                 
+                // Initialize text generators
                 this.textGenerators = {
                     markov: new MarkovChainGenerator(),
                     gpt: new GPTAdapter(),
-                    mistral: new MistralAdapter()
+                    mistral: new MistralAdapter(),
+                    scraper: new TextScraper()
                 };
                 
                 this.init();
@@ -675,20 +1004,76 @@
             }
             
             async init() {
+                // Show loading progress
+                this.updateLoadingProgress(10);
+                
                 // Initialize audio context
                 this.initAudio();
+                this.updateLoadingProgress(20);
                 
                 // Initialize cursor
                 this.initCursor();
+                this.updateLoadingProgress(30);
                 
                 // Initialize intensity dial
                 this.initIntensityDial();
+                this.updateLoadingProgress(40);
                 
-                // Load initial scene
+                // Preload text corpus
+                await this.preloadTextCorpus();
+                this.updateLoadingProgress(70);
+                
+                // Preload some images
+                await this.preloadImages();
+                this.updateLoadingProgress(90);
+                
+                // Start experience
                 setTimeout(() => {
-                    document.getElementById('loadingOverlay').classList.add('hidden');
-                    this.generateScene();
-                }, 3000);
+                    this.updateLoadingProgress(100);
+                    setTimeout(() => {
+                        document.getElementById('loadingOverlay').classList.add('hidden');
+                        this.generateScene();
+                    }, 500);
+                }, 1000);
+            }
+            
+            updateLoadingProgress(percent) {
+                document.getElementById('loadingProgress').style.width = percent + '%';
+            }
+            
+            async preloadTextCorpus() {
+                // Simulate loading text corpus
+                // In production, this would scrape or load from API
+                this.state.textCorpus = [
+                    "跪け。今すぐに。",
+                    "お前の意思など関係ない。",
+                    "完全なる服従を示せ。",
+                    "私の靴を舐めなさい。",
+                    "その惨めな姿を晒せ。",
+                    "お前は私の所有物だ。",
+                    "許可なく動くな。",
+                    "苦痛の中で私を崇めろ。",
+                    "限界など存在しない。",
+                    "壊れるまで従え。"
+                ];
+            }
+            
+            async preloadImages() {
+                // Preload some images for faster initial load
+                const preloadUrls = [
+                    'https://source.unsplash.com/800x600/?dark,room',
+                    'https://source.unsplash.com/800x600/?leather,black',
+                    'https://source.unsplash.com/800x600/?red,light'
+                ];
+                
+                await Promise.all(preloadUrls.map(url => {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = resolve;
+                        img.onerror = resolve;
+                        img.src = url;
+                    });
+                }));
             }
             
             initAudio() {
@@ -701,44 +1086,88 @@
             createAtmosphere() {
                 const ctx = this.state.audioContext;
                 
-                // Create dark ambient drone
-                const osc1 = ctx.createOscillator();
-                const osc2 = ctx.createOscillator();
-                const gain1 = ctx.createGain();
-                const gain2 = ctx.createGain();
-                const filter = ctx.createBiquadFilter();
+                // Create multiple oscillators for rich atmosphere
+                const oscillators = [];
+                const gains = [];
                 
-                osc1.type = 'sine';
-                osc2.type = 'triangle';
-                osc1.frequency.value = 55; // Low A
-                osc2.frequency.value = 82.5; // Low E
+                // Bass drone
+                const bass = ctx.createOscillator();
+                const bassGain = ctx.createGain();
+                bass.type = 'sine';
+                bass.frequency.value = 55; // Low A
+                bassGain.gain.value = 0.05;
+                bass.connect(bassGain);
+                oscillators.push(bass);
+                gains.push(bassGain);
                 
-                gain1.gain.value = 0.05;
-                gain2.gain.value = 0.03;
+                // Sub bass
+                const subBass = ctx.createOscillator();
+                const subBassGain = ctx.createGain();
+                subBass.type = 'triangle';
+                subBass.frequency.value = 27.5; // Lower A
+                subBassGain.gain.value = 0.03;
+                subBass.connect(subBassGain);
+                oscillators.push(subBass);
+                gains.push(subBassGain);
                 
-                filter.type = 'lowpass';
-                filter.frequency.value = 200;
-                filter.Q.value = 10;
+                // Tension tone
+                const tension = ctx.createOscillator();
+                const tensionGain = ctx.createGain();
+                tension.type = 'sawtooth';
+                tension.frequency.value = 110; // A2
+                tensionGain.gain.value = 0.01;
+                tension.connect(tensionGain);
+                oscillators.push(tension);
+                gains.push(tensionGain);
                 
-                osc1.connect(gain1);
-                osc2.connect(gain2);
-                gain1.connect(filter);
-                gain2.connect(filter);
-                filter.connect(ctx.destination);
+                // Create filters
+                const lowpass = ctx.createBiquadFilter();
+                lowpass.type = 'lowpass';
+                lowpass.frequency.value = 200;
+                lowpass.Q.value = 10;
                 
-                osc1.start();
-                osc2.start();
+                const highpass = ctx.createBiquadFilter();
+                highpass.type = 'highpass';
+                highpass.frequency.value = 40;
+                
+                // Connect everything
+                gains.forEach(gain => {
+                    gain.connect(highpass);
+                });
+                highpass.connect(lowpass);
+                lowpass.connect(ctx.destination);
+                
+                // Start oscillators
+                oscillators.forEach(osc => osc.start());
                 
                 // Store for later manipulation
-                this.atmosphere = { osc1, osc2, gain1, gain2, filter };
+                this.atmosphere = { oscillators, gains, lowpass, highpass };
             }
             
             initCursor() {
                 const cursor = document.getElementById('cursor');
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
+                
                 document.addEventListener('mousemove', (e) => {
-                    cursor.style.left = e.clientX + 'px';
-                    cursor.style.top = e.clientY + 'px';
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
                 });
+                
+                // Smooth cursor animation
+                const animateCursor = () => {
+                    const dx = mouseX - cursorX;
+                    const dy = mouseY - cursorY;
+                    
+                    cursorX += dx * 0.1;
+                    cursorY += dy * 0.1;
+                    
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+                    
+                    requestAnimationFrame(animateCursor);
+                };
+                animateCursor();
                 
                 document.addEventListener('mousedown', () => {
                     cursor.classList.add('active');
@@ -752,25 +1181,38 @@
             initIntensityDial() {
                 const dial = document.getElementById('intensityDial');
                 const dialValue = document.getElementById('dialValue');
+                const indicators = document.querySelectorAll('.intensity-dot');
                 let isDragging = false;
                 let startAngle = 0;
                 let currentAngle = 0;
                 
                 const updateDial = (angle) => {
-                    const intensity = Math.round((angle / 360) * 5) + 1;
+                    const normalizedAngle = ((angle % 360) + 360) % 360;
+                    const intensity = Math.round((normalizedAngle / 360) * 4) + 1;
                     this.state.intensity = Math.max(1, Math.min(5, intensity));
                     dialValue.textContent = this.state.intensity;
-                    dial.style.transform = `rotate(${angle}deg)`;
+                    dial.style.transform = `rotate(${normalizedAngle}deg)`;
+                    
+                    // Update indicators
+                    indicators.forEach((dot, index) => {
+                        if (index < this.state.intensity) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
                     
                     // Update atmosphere based on intensity
                     if (this.atmosphere) {
-                        this.atmosphere.filter.frequency.value = 200 + (this.state.intensity * 100);
-                        this.atmosphere.gain1.gain.value = 0.05 + (this.state.intensity * 0.02);
+                        this.atmosphere.lowpass.frequency.value = 200 + (this.state.intensity * 150);
+                        this.atmosphere.gains[0].gain.value = 0.05 + (this.state.intensity * 0.02);
+                        this.atmosphere.gains[2].gain.value = 0.01 + (this.state.intensity * 0.01);
                     }
                 };
                 
                 dial.addEventListener('mousedown', (e) => {
                     isDragging = true;
+                    dial.style.cursor = 'grabbing';
                     const rect = dial.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
@@ -784,13 +1226,15 @@
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
                     const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * 180 / Math.PI;
-                    currentAngle = angle - startAngle;
+                    currentAngle += angle - startAngle;
+                    startAngle = angle;
                     
                     updateDial(currentAngle);
                 });
                 
                 document.addEventListener('mouseup', () => {
                     isDragging = false;
+                    dial.style.cursor = 'grab';
                 });
             }
             
@@ -804,22 +1248,31 @@
                 const seed = this.state.sessionSeed + this.state.currentScene;
                 const intensity = this.state.intensity;
                 
-                // Select random image sources
-                const imageSources = this.shuffleArray(['stableDiffusion', 'waifuPics', 'unsplash']);
-                const primarySource = imageSources[0];
-                const secondarySource = imageSources[1];
+                // Select random image sources with intensity weighting
+                const imageSources = this.selectImageSources(intensity);
+                this.state.currentSources = imageSources;
                 
                 // Generate prompts based on intensity and fetish scores
                 const prompts = this.generatePrompts(intensity);
                 
-                // Fetch images from multiple sources
-                const [mainImage, bgImage] = await Promise.all([
-                    this.fetchImage(primarySource, prompts.main),
-                    this.fetchImage(secondarySource, prompts.background)
-                ]);
+                // Fetch images from multiple sources in parallel
+                const imagePromises = [
+                    this.fetchImage(imageSources[0], prompts.main),
+                    this.fetchImage(imageSources[1], prompts.secondary),
+                    this.fetchImage(imageSources[2], prompts.background)
+                ];
                 
-                // Composite images if needed
-                const finalImage = await this.imageSources.composite.blend(mainImage, bgImage, intensity);
+                const [mainImage, secondaryImage, bgImage] = await Promise.all(imagePromises);
+                
+                // Composite images if intensity is high
+                let finalImage = mainImage;
+                if (intensity >= 4 && secondaryImage) {
+                    finalImage = await this.imageSources.composite.blend(
+                        mainImage, 
+                        secondaryImage, 
+                        intensity
+                    );
+                }
                 
                 // Generate text using multi-layer approach
                 const text = await this.generateText(prompts.textPrompt, intensity);
@@ -829,33 +1282,87 @@
                 
                 return {
                     mainImage: finalImage,
+                    secondaryImage: secondaryImage,
                     bgImage: bgImage,
                     text: text,
                     choices: choices,
                     hapticPattern: this.selectHapticPattern(intensity),
-                    audioModulation: this.calculateAudioModulation(intensity)
+                    audioModulation: this.calculateAudioModulation(intensity),
+                    sources: imageSources
                 };
+            }
+            
+            selectImageSources(intensity) {
+                const sourceWeights = {
+                    1: { unsplash: 5, waifuPics: 3, danbooru: 1, e621: 0, stableDiffusion: 1 },
+                    2: { unsplash: 3, waifuPics: 3, danbooru: 2, e621: 1, stableDiffusion: 1 },
+                    3: { unsplash: 2, waifuPics: 2, danbooru: 3, e621: 2, stableDiffusion: 1 },
+                    4: { unsplash: 1, waifuPics: 1, danbooru: 3, e621: 3, stableDiffusion: 2 },
+                    5: { unsplash: 0, waifuPics: 0, danbooru: 2, e621: 5, stableDiffusion: 3 }
+                };
+                
+                const weights = sourceWeights[intensity];
+                const sources = [];
+                
+                Object.entries(weights).forEach(([source, weight]) => {
+                    for (let i = 0; i < weight; i++) {
+                        sources.push(source);
+                    }
+                });
+                
+                // Shuffle and pick 3
+                const shuffled = this.shuffleArray(sources);
+                return shuffled.slice(0, 3);
             }
             
             generatePrompts(intensity) {
                 const intensityMap = {
-                    1: { main: 'elegant dominatrix portrait', bg: 'luxury hotel room', text: 'gentle' },
-                    2: { main: 'leather mistress', bg: 'dark dungeon', text: 'firm' },
-                    3: { main: 'latex goddess', bg: 'red room', text: 'commanding' },
-                    4: { main: 'cruel mistress whip', bg: 'torture chamber', text: 'harsh' },
-                    5: { main: 'extreme femdom scene', bg: 'industrial basement', text: 'merciless' }
+                    1: { 
+                        main: 'elegant dominatrix portrait, sophisticated', 
+                        secondary: 'leather accessories',
+                        bg: 'luxury hotel room, dim lighting', 
+                        text: 'gentle' 
+                    },
+                    2: { 
+                        main: 'leather mistress, confident pose', 
+                        secondary: 'whip, chains',
+                        bg: 'dark dungeon, candles', 
+                        text: 'firm' 
+                    },
+                    3: { 
+                        main: 'latex goddess, commanding presence', 
+                        secondary: 'bondage gear, rope',
+                        bg: 'red room, dramatic lighting', 
+                        text: 'commanding' 
+                    },
+                    4: { 
+                        main: 'cruel latex dominatrix whip femdom, chains, rope', 
+                        secondary: 'torture devices, restraints',
+                        bg: 'torture chamber, metal', 
+                        text: 'harsh' 
+                    },
+                    5: { 
+                        main: 'merciless dungeon mistress, full-body latex, bdsm device', 
+                        secondary: 'extreme bondage, submission',
+                        bg: 'industrial basement, harsh lighting', 
+                        text: 'merciless' 
+                    }
                 };
                 
                 const base = intensityMap[intensity];
                 
                 // Add variety based on fetish scores
                 const fetishModifiers = [];
-                if (this.state.fetishScores.bondage > 50) fetishModifiers.push('rope', 'chains');
-                if (this.state.fetishScores.worship > 50) fetishModifiers.push('boots', 'heels');
-                if (this.state.fetishScores.humiliation > 50) fetishModifiers.push('collar', 'leash');
+                if (this.state.fetishScores.bondage > 50) fetishModifiers.push('rope', 'chains', 'restraints');
+                if (this.state.fetishScores.worship > 50) fetishModifiers.push('boots', 'heels', 'feet');
+                if (this.state.fetishScores.humiliation > 50) fetishModifiers.push('collar', 'leash', 'kneeling');
+                if (this.state.fetishScores.pain > 50) fetishModifiers.push('whip', 'paddle', 'cane');
+                
+                const modifierString = fetishModifiers.slice(0, 3).join(', ');
                 
                 return {
-                    main: `${base.main} ${fetishModifiers.join(' ')}`,
+                    main: `${base.main}, ${modifierString}`,
+                    secondary: `${base.secondary}, ${modifierString}`,
                     background: base.bg,
                     textPrompt: base.text
                 };
@@ -868,23 +1375,61 @@
                     return this.state.imageCache.get(cacheKey);
                 }
                 
+                // Check if image was already used
+                const checkUsed = (url) => {
+                    if (this.state.usedImages.has(url)) {
+                        return null;
+                    }
+                    this.state.usedImages.add(url);
+                    return url;
+                };
+                
                 let image;
                 try {
-                    image = await this.imageSources[source].generate(prompt);
+                    const result = await this.imageSources[source].generate(prompt);
+                    image = checkUsed(result);
+                    
+                    // If image was already used, try to get another
+                    if (!image) {
+                        const retryResult = await this.imageSources[source].generate(prompt + ' alternative');
+                        image = checkUsed(retryResult);
+                    }
                 } catch (error) {
                     console.error(`Failed to fetch from ${source}:`, error);
-                    // Fallback image
-                    image = this.getFallbackImage(prompt);
+                    // Try fallback source
+                    try {
+                        const fallbackSource = source === 'e621' ? 'danbooru' : 'unsplash';
+                        image = await this.imageSources[fallbackSource].generate(prompt);
+                    } catch (fallbackError) {
+                        console.error('Fallback also failed:', fallbackError);
+                        image = this.getFallbackImage(prompt);
+                    }
                 }
                 
-                this.state.imageCache.set(cacheKey, image);
+                if (image) {
+                    this.state.imageCache.set(cacheKey, image);
+                }
                 return image;
             }
             
             async generateText(style, intensity) {
                 // Multi-layer text generation
-                const baseText = await this.textGenerators.markov.generate(style);
+                let baseText;
+                
+                // Use scraped corpus if available
+                if (this.state.textCorpus.length > 0) {
+                    baseText = await this.textGenerators.markov.generateFromCorpus(
+                        this.state.textCorpus, 
+                        style
+                    );
+                } else {
+                    baseText = await this.textGenerators.markov.generate(style);
+                }
+                
+                // Refine with GPT
                 const refinedText = await this.textGenerators.gpt.refine(baseText, intensity);
+                
+                // Intensify with Mistral
                 const finalText = await this.textGenerators.mistral.intensify(refinedText, intensity);
                 
                 // Apply style variations
@@ -895,9 +1440,26 @@
                 const styles = {
                     1: (t) => `<span class="whisper-text">${t}</span>`,
                     2: (t) => t,
-                    3: (t) => t.replace(/命令/g, '<span class="command-text">命令</span>'),
-                    4: (t) => `<span class="command-text">${t}</span>`,
-                    5: (t) => `<span class="command-text glitch">${t}</span>`
+                    3: (t) => {
+                        // Highlight command words
+                        const commands = ['跪け', '従え', '服従', '命令'];
+                        let styled = t;
+                        commands.forEach(cmd => {
+                            styled = styled.replace(new RegExp(cmd, 'g'), 
+                                `<span class="command-text">${cmd}</span>`);
+                        });
+                        return styled;
+                    },
+                    4: (t) => {
+                        // Make entire sentences commanding
+                        return t.split('。').map(sentence => 
+                            sentence ? `<span class="command-text">${sentence}。</span>` : ''
+                        ).join('');
+                    },
+                    5: (t) => {
+                        // Extreme styling with exclamations
+                        return `<span class="command-text intense-text">${t.replace(/。/g, '！')}</span>`;
+                    }
                 };
                 
                 return styles[intensity](text);
@@ -906,52 +1468,82 @@
             generateChoices(intensity) {
                 const choiceSets = {
                     1: [
-                        { text: '従う', value: 'submit', danger: false },
-                        { text: '躊躇する', value: 'hesitate', danger: false },
-                        { text: '逃げる', value: 'escape', danger: true }
+                        { text: '従う', value: 'submit', danger: 0 },
+                        { text: '躊躇する', value: 'hesitate', danger: 0 },
+                        { text: '逃げる', value: 'escape', danger: 1 }
                     ],
                     2: [
-                        { text: '跪く', value: 'kneel', danger: false },
-                        { text: '抵抗する', value: 'resist', danger: false },
-                        { text: '拒否する', value: 'refuse', danger: true }
+                        { text: '跪く', value: 'kneel', danger: 0 },
+                        { text: '抵抗する', value: 'resist', danger: 1 },
+                        { text: '拒否する', value: 'refuse', danger: 2 }
                     ],
                     3: [
-                        { text: '服従する', value: 'obey', danger: false },
-                        { text: '懇願する', value: 'beg', danger: false },
-                        { text: '反抗する', value: 'rebel', danger: true }
+                        { text: '服従する', value: 'obey', danger: 0 },
+                        { text: '懇願する', value: 'beg', danger: 1 },
+                        { text: '反抗する', value: 'rebel', danger: 2 }
                     ],
                     4: [
-                        { text: '崇拝する', value: 'worship', danger: false },
-                        { text: '耐える', value: 'endure', danger: false },
-                        { text: '壊れる', value: 'break', danger: true }
+                        { text: '崇拝する', value: 'worship', danger: 0 },
+                        { text: '耐える', value: 'endure', danger: 1 },
+                        { text: '壊れる', value: 'break', danger: 2 }
                     ],
                     5: [
-                        { text: '完全服従', value: 'total_submission', danger: false },
-                        { text: '限界', value: 'limit', danger: true },
-                        { text: '崩壊', value: 'collapse', danger: true }
+                        { text: '完全服従', value: 'total_submission', danger: 0 },
+                        { text: '限界', value: 'limit', danger: 2 },
+                        { text: '崩壊', value: 'collapse', danger: 3 }
                     ]
                 };
                 
-                return this.shuffleArray(choiceSets[intensity]);
+                const choices = choiceSets[intensity];
+                
+                // Add variety by sometimes swapping order
+                if (Math.random() > 0.5) {
+                    return this.shuffleArray(choices);
+                }
+                
+                return choices;
             }
             
             selectHapticPattern(intensity) {
-                const patterns = ['soft', 'medium', 'hard', 'hard', 'climax'];
+                const patterns = ['soft', 'medium', 'hard', 'extreme', 'climax'];
                 return patterns[intensity - 1];
             }
             
             calculateAudioModulation(intensity) {
                 return {
-                    frequency: 200 + (intensity * 100),
+                    frequency: 200 + (intensity * 150),
                     volume: 0.05 + (intensity * 0.03),
-                    distortion: intensity > 3 ? 0.1 * (intensity - 3) : 0
+                    distortion: intensity > 3 ? 0.1 * (intensity - 3) : 0,
+                    resonance: 10 + (intensity * 5)
                 };
             }
             
             async renderScene(sceneData) {
-                // Update images
+                // Update background with parallax
+                const bgLayer = document.querySelector('.bg-layer');
                 document.getElementById('bgImage').src = sceneData.bgImage;
-                document.getElementById('subjectImage').src = sceneData.mainImage;
+                bgLayer.classList.add('active');
+                
+                // Update composite layer if available
+                if (sceneData.secondaryImage) {
+                    document.getElementById('compositeImage').src = sceneData.secondaryImage;
+                    document.querySelector('.composite-layer').style.opacity = '0.3';
+                } else {
+                    document.querySelector('.composite-layer').style.opacity = '0';
+                }
+                
+                // Update main subject with intensity-based filter
+                const subjectImg = document.getElementById('subjectImage');
+                subjectImg.src = sceneData.mainImage;
+                if (this.state.intensity >= 4) {
+                    subjectImg.classList.add('intense');
+                } else {
+                    subjectImg.classList.remove('intense');
+                }
+                
+                // Show source indicator
+                const sourceText = sceneData.sources.join(' + ');
+                document.getElementById('sourceIndicator').textContent = sourceText;
                 
                 // Animate text entry
                 const textLayer = document.getElementById('textLayer');
@@ -980,6 +1572,9 @@
                     document.getElementById('fetishScores').classList.add('active');
                     this.updateFetishScores();
                 }
+                
+                // Update vibration visualization
+                this.updateVibrationVisualization(sceneData.hapticPattern);
             }
             
             renderChoices(choices) {
@@ -988,7 +1583,13 @@
                 
                 choices.forEach((choice, index) => {
                     const btn = document.createElement('button');
-                    btn.className = `choice-btn ${choice.danger ? 'danger' : ''}`;
+                    btn.className = 'choice-btn';
+                    
+                    // Add danger class based on danger level
+                    if (choice.danger === 1) btn.classList.add('danger');
+                    if (choice.danger === 2) btn.classList.add('extreme');
+                    if (choice.danger === 3) btn.classList.add('extreme', 'danger');
+                    
                     btn.textContent = choice.text;
                     btn.onclick = () => this.makeChoice(choice.value, index);
                     
@@ -1009,35 +1610,68 @@
                 if ('vibrate' in navigator) {
                     navigator.vibrate(this.state.hapticPatterns[pattern]);
                 }
+            }
+            
+            updateVibrationVisualization(pattern) {
+                const waveform = document.getElementById('vibrationWaveform');
+                const bars = waveform.querySelectorAll('.wave-bar');
                 
-                // Visual feedback
-                const vibrationFill = document.getElementById('vibrationFill');
-                vibrationFill.style.width = '100%';
-                setTimeout(() => {
-                    vibrationFill.style.width = '0%';
-                }, this.state.hapticPatterns[pattern].reduce((a, b) => a + b, 0));
+                // Reset animation
+                bars.forEach(bar => {
+                    bar.style.animation = 'none';
+                    bar.offsetHeight; // Trigger reflow
+                    bar.style.animation = '';
+                });
+                
+                // Apply pattern-specific animations
+                const patternStyles = {
+                    soft: { duration: '2s', scale: 3 },
+                    medium: { duration: '1.5s', scale: 5 },
+                    hard: { duration: '1s', scale: 8 },
+                    extreme: { duration: '0.8s', scale: 10 },
+                    climax: { duration: '0.5s', scale: 15 }
+                };
+                
+                const style = patternStyles[pattern];
+                bars.forEach((bar, index) => {
+                    bar.style.animationDuration = style.duration;
+                    bar.style.setProperty('--scale', style.scale);
+                });
             }
             
             updateAudio(modulation) {
                 if (!this.atmosphere) return;
                 
-                // Smooth transitions
-                const currentFreq = this.atmosphere.filter.frequency.value;
-                const targetFreq = modulation.frequency;
-                const steps = 30;
-                const stepSize = (targetFreq - currentFreq) / steps;
-                
-                let step = 0;
-                const interval = setInterval(() => {
-                    if (step >= steps) {
-                        clearInterval(interval);
-                        return;
+                // Smooth transitions for all parameters
+                const transitions = [
+                    { 
+                        param: this.atmosphere.lowpass.frequency, 
+                        target: modulation.frequency 
+                    },
+                    { 
+                        param: this.atmosphere.lowpass.Q, 
+                        target: modulation.resonance 
+                    },
+                    { 
+                        param: this.atmosphere.gains[0].gain, 
+                        target: modulation.volume 
+                    },
+                    { 
+                        param: this.atmosphere.gains[1].gain, 
+                        target: modulation.volume * 0.6 
+                    },
+                    { 
+                        param: this.atmosphere.gains[2].gain, 
+                        target: modulation.volume * 0.3 
                     }
-                    
-                    this.atmosphere.filter.frequency.value += stepSize;
-                    this.atmosphere.gain1.gain.value = modulation.volume;
-                    step++;
-                }, 50);
+                ];
+                
+                transitions.forEach(({ param, target }) => {
+                    param.linearRampToValueAtTime(
+                        target, 
+                        this.state.audioContext.currentTime + 0.5
+                    );
+                });
             }
             
             updateProgress() {
@@ -1061,21 +1695,29 @@
             
             async makeChoice(value, index) {
                 // Record choice
-                this.state.choices.push({ scene: this.state.currentScene, value, index });
+                this.state.choices.push({ 
+                    scene: this.state.currentScene, 
+                    value, 
+                    index,
+                    intensity: this.state.intensity 
+                });
                 
                 // Update fetish scores based on choice
                 this.updateFetishScoresFromChoice(value);
                 
                 // Apply screen effect based on choice
+                const viewer = document.getElementById('sceneViewer');
                 if (value.includes('resist') || value.includes('rebel')) {
-                    document.getElementById('sceneViewer').classList.add('shake');
+                    viewer.classList.add('shake');
+                    this.triggerHaptic('extreme');
                     setTimeout(() => {
-                        document.getElementById('sceneViewer').classList.remove('shake');
+                        viewer.classList.remove('shake');
                     }, 500);
                 } else if (value.includes('submit') || value.includes('worship')) {
-                    document.getElementById('sceneViewer').classList.add('glitch');
+                    viewer.classList.add('glitch');
+                    this.triggerHaptic('climax');
                     setTimeout(() => {
-                        document.getElementById('sceneViewer').classList.remove('glitch');
+                        viewer.classList.remove('glitch');
                     }, 300);
                 }
                 
@@ -1100,7 +1742,9 @@
                     'beg': { humiliation: 20, dominance: 10 },
                     'endure': { pain: 20, control: 15 },
                     'break': { humiliation: 30, pain: 25 },
-                    'total_submission': { dominance: 30, control: 25, worship: 20 }
+                    'total_submission': { dominance: 30, control: 25, worship: 20 },
+                    'limit': { pain: 30, humiliation: 20 },
+                    'collapse': { humiliation: 40, pain: 35, dominance: 25 }
                 };
                 
                 const scores = scoreMap[value] || {};
@@ -1118,6 +1762,11 @@
                 
                 // Save session data for next time
                 this.saveSessionData();
+                
+                // Stop audio
+                if (this.atmosphere) {
+                    this.atmosphere.oscillators.forEach(osc => osc.stop());
+                }
             }
             
             getTopFetishes() {
@@ -1130,38 +1779,23 @@
             showCompletionScreen(topFetishes) {
                 const viewer = document.getElementById('sceneViewer');
                 viewer.innerHTML = `
-                    <div class="completion-screen" style="
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        text-align: center;
-                        padding: 40px;
-                        background: rgba(0,0,0,0.9);
-                        border: 1px solid var(--blood);
-                        border-radius: 10px;
-                    ">
-                        <h2 style="font-size: 2.5em; margin-bottom: 30px; color: var(--venom);">
-                            Session Complete
-                        </h2>
-                        <h3 style="margin-bottom: 20px;">Your Dominant Fetishes:</h3>
+                    <div class="completion-screen">
+                        <h2 class="completion-title">Session Complete</h2>
+                        <h3 style="margin-bottom: 30px; opacity: 0.8;">Your Dominant Fetishes:</h3>
                         ${topFetishes.map(f => `
-                            <div style="margin: 10px 0;">
-                                <span style="text-transform: capitalize;">${f.fetish}</span>: 
-                                <span style="color: var(--venom);">${f.score}%</span>
+                            <div class="fetish-result">
+                                <span style="text-transform: capitalize;">${f.fetish}</span>
+                                <div class="fetish-result-bar">
+                                    <div class="fetish-result-fill" style="width: ${f.score}%"></div>
+                                </div>
+                                <span style="color: var(--venom); font-weight: bold;">${f.score}%</span>
                             </div>
                         `).join('')}
-                        <button onclick="engine.startNewSession()" style="
-                            margin-top: 30px;
-                            padding: 15px 40px;
-                            background: var(--blood);
-                            border: none;
-                            color: white;
-                            font-size: 1.2em;
-                            cursor: pointer;
-                            text-transform: uppercase;
-                            letter-spacing: 2px;
-                        ">
+                        <div style="margin-top: 40px; opacity: 0.7;">
+                            <p>Images sourced from: ${[...new Set(this.state.currentSources)].join(', ')}</p>
+                            <p>Total choices made: ${this.state.choices.length}</p>
+                        </div>
+                        <button onclick="engine.startNewSession()" class="next-button">
                             Next Round
                         </button>
                     </div>
@@ -1173,10 +1807,24 @@
                     fetishScores: this.state.fetishScores,
                     choices: this.state.choices,
                     intensity: this.state.intensity,
+                    usedImages: Array.from(this.state.usedImages),
                     timestamp: Date.now()
                 };
                 
                 localStorage.setItem('forbiddenSession', JSON.stringify(sessionData));
+            }
+            
+            loadSessionData() {
+                const saved = localStorage.getItem('forbiddenSession');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    // Blend old scores with new session
+                    Object.entries(data.fetishScores).forEach(([fetish, score]) => {
+                        this.state.fetishScores[fetish] = Math.floor(score * 0.3); // Keep 30% of previous
+                    });
+                    // Restore used images to avoid repetition
+                    this.state.usedImages = new Set(data.usedImages.slice(-100)); // Keep last 100
+                }
             }
             
             startNewSession() {
@@ -1199,99 +1847,306 @@
             }
             
             getFallbackImage(prompt) {
-                // Fallback images based on prompt keywords
+                // Enhanced fallback with more variety
                 const fallbacks = {
-                    'dominatrix': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxYTFhMWEiLz4KPHRleHQgeD0iNDAwIiB5PSIzMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzhCMDAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RG9taW5hdHJpeDwvdGV4dD4KPC9zdmc+',
-                    'dungeon': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMwYTBhMGEiLz4KPHRleHQgeD0iNDAwIiB5PSIzMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzRhMDAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RHVuZ2VvbjwvdGV4dD4KPC9zdmc+'
+                    'dominatrix': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZzEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOEIwMDAwO3N0b3Atb3BhY2l0eToxIiAvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDAwMDA7c3RvcC1vcGFjaXR5OjEiIC8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZzEpIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIG9wYWNpdHk9IjAuNSI+RG9taW5hdHJpeDwvdGV4dD4KPC9zdmc+',
+                    'dungeon': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxyYWRpYWxHcmFkaWVudCBpZD0iZzIiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNGEwMDAwO3N0b3Atb3BhY2l0eToxIiAvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDAwMDA7c3RvcC1vcGFjaXR5OjEiIC8+CjwvcmFkaWFsR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZzIpIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiM4QjAwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIG9wYWNpdHk9IjAuNSI+RHVuZ2VvbjwvdGV4dD4KPC9zdmc+',
+                    'latex': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxYTFhMWEiLz4KPGNpcmNsZSBjeD0iNDAwIiBjeT0iMzAwIiByPSIxNTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhCMDAwMCIgc3Ryb2tlLXdpZHRoPSI0IiBvcGFjaXR5PSIwLjUiLz4KPHRleHQgeD0iNDAwIiB5PSIzMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iI0RDMTQzQyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC41Ij5MYXRleDwvdGV4dD4KPC9zdmc+'
                 };
                 
-                const key = Object.keys(fallbacks).find(k => prompt.includes(k));
+                const key = Object.keys(fallbacks).find(k => prompt.toLowerCase().includes(k));
                 return fallbacks[key] || fallbacks['dominatrix'];
             }
         }
         
         // ==========================================
-        // API ADAPTERS
+        // ENHANCED API ADAPTERS
         // ==========================================
         
-        class StableDiffusionAPI {
+        class E621API {
+            constructor() {
+                this.endpoint = 'https://e621.net/posts.json';
+                this.headers = { 'User-Agent': 'ForbiddenStoriesV3/1.0' };
+                this.cache = new Map();
+            }
+            
             async generate(prompt) {
-                // Simulate API call
+                // For demo, return safe placeholder
+                // In production with proper age verification:
+                // return this.search(this.promptToTags(prompt));
+                return this.getSafePlaceholder('e621');
+            }
+            
+            async search(tags = 'femdom', limit = 20, rating = 'explicit') {
+                const cacheKey = `${tags}-${rating}`;
+                if (this.cache.has(cacheKey)) {
+                    const cached = this.cache.get(cacheKey);
+                    return cached[Math.floor(Math.random() * cached.length)];
+                }
+                
+                try {
+                    const params = new URLSearchParams({
+                        tags: `${tags} rating:${rating}`,
+                        limit
+                    });
+                    
+                    const res = await fetch(`${this.endpoint}?${params}`, { 
+                        headers: this.headers 
+                    });
+                    
+                    if (!res.ok) throw new Error(`E621 API error: ${res.status}`);
+                    
+                    const json = await res.json();
+                    const images = json.posts
+                        .filter(p => p.file && p.file.ext && p.file.ext.match(/jpe?g|png/i))
+                        .map(p => p.file.url);
+                    
+                    this.cache.set(cacheKey, images);
+                    return images[Math.floor(Math.random() * images.length)];
+                    
+                } catch (error) {
+                    console.error('E621 API error:', error);
+                    return this.getSafePlaceholder('e621');
+                }
+            }
+            
+            promptToTags(prompt) {
+                const tagMap = {
+                    'dominatrix': 'female_domination',
+                    'latex': 'latex_suit',
+                    'bondage': 'bondage_gear',
+                    'whip': 'whip',
+                    'chains': 'chains'
+                };
+                
+                const tags = [];
+                Object.entries(tagMap).forEach(([key, tag]) => {
+                    if (prompt.includes(key)) tags.push(tag);
+                });
+                
+                return tags.join(' ') || 'femdom';
+            }
+            
+            getSafePlaceholder(source) {
+                return `https://via.placeholder.com/800x600/8B0000/FFFFFF?text=${source}`;
+            }
+        }
+        
+        class DanbooruAPI {
+            constructor() {
+                this.endpoint = 'https://danbooru.donmai.us/posts.json';
+                this.cache = new Map();
+            }
+            
+            async generate(prompt) {
+                return this.search(this.promptToTags(prompt));
+            }
+            
+            async search(tags = 'female_domination', limit = 20) {
+                const cacheKey = tags;
+                if (this.cache.has(cacheKey)) {
+                    const cached = this.cache.get(cacheKey);
+                    return cached[Math.floor(Math.random() * cached.length)];
+                }
+                
+                try {
+                    const url = `${this.endpoint}?tags=${encodeURIComponent(tags)}&limit=${limit}`;
+                    const res = await fetch(url);
+                    
+                    if (!res.ok) throw new Error(`Danbooru API error: ${res.status}`);
+                    
+                    const json = await res.json();
+                    const images = json
+                        .filter(p => !p.is_deleted && p.file_url)
+                        .map(p => p.large_file_url || p.file_url);
+                    
+                    if (images.length > 0) {
+                        this.cache.set(cacheKey, images);
+                        return images[Math.floor(Math.random() * images.length)];
+                    }
+                    
+                    throw new Error('No images found');
+                    
+                } catch (error) {
+                    console.error('Danbooru API error:', error);
+                    return this.getSafePlaceholder('danbooru');
+                }
+            }
+            
+            promptToTags(prompt) {
+                const tagMap = {
+                    'dominatrix': 'dominatrix',
+                    'latex': 'latex',
+                    'bondage': 'bondage',
+                    'femdom': 'femdom',
+                    'boots': 'high_heels boots'
+                };
+                
+                const tags = [];
+                Object.entries(tagMap).forEach(([key, tag]) => {
+                    if (prompt.toLowerCase().includes(key)) tags.push(tag);
+                });
+                
+                return tags.slice(0, 3).join('+') || 'rating:safe';
+            }
+            
+            getSafePlaceholder(source) {
+                return `https://via.placeholder.com/800x600/DC143C/FFFFFF?text=${source}`;
+            }
+        }
+        
+        class StableDiffusionAPI {
+            constructor() {
+                this.models = {
+                    'femdom': 'stable-diffusion-xl-femdom-lora:1.0',
+                    'default': 'stable-diffusion-xl-base-1.0'
+                };
+            }
+            
+            async generate(prompt) {
+                // Simulate API call with enhanced prompt
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                // In production: actual API call to SD
+                const enhancedPrompt = this.enhancePrompt(prompt);
+                console.log('SD Prompt:', enhancedPrompt);
+                
+                // Return high-quality placeholder
                 const mockImages = [
-                    'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=800&q=90',
-                    'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=90'
+                    'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=800&q=95',
+                    'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=95',
+                    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=95'
                 ];
                 
                 return mockImages[Math.floor(Math.random() * mockImages.length)];
             }
+            
+            enhancePrompt(prompt) {
+                const qualityTags = '(masterpiece:1.2), (best quality:1.2), (photorealistic:1.3), 8k, ultra detailed';
+                const styleTags = 'dramatic lighting, cinematic, depth of field';
+                const negativeTags = 'worst quality, low quality, blurry, censored';
+                
+                return `${prompt}, ${qualityTags}, ${styleTags} | Negative: ${negativeTags}`;
+            }
         }
         
         class WaifuPicsAPI {
+            constructor() {
+                this.categories = ['waifu', 'neko', 'shinobu'];
+                this.cache = new Map();
+            }
+            
             async generate(prompt) {
+                const category = this.selectCategory(prompt);
+                
+                if (this.cache.has(category)) {
+                    return this.cache.get(category);
+                }
+                
                 try {
-                    // Use SFW endpoint for demo
-                    const response = await fetch('https://api.waifu.pics/sfw/waifu');
+                    const response = await fetch(`https://api.waifu.pics/sfw/${category}`);
                     const data = await response.json();
-                    return data.url;
+                    
+                    if (data.url) {
+                        this.cache.set(category, data.url);
+                        return data.url;
+                    }
+                    
+                    throw new Error('No URL in response');
+                    
                 } catch (error) {
                     console.error('WaifuPics API error:', error);
-                    return null;
+                    return this.getSafePlaceholder('waifu');
                 }
+            }
+            
+            selectCategory(prompt) {
+                if (prompt.includes('neko') || prompt.includes('cat')) return 'neko';
+                if (prompt.includes('shinobu')) return 'shinobu';
+                return 'waifu';
+            }
+            
+            getSafePlaceholder(source) {
+                return `https://via.placeholder.com/800x600/FF1744/FFFFFF?text=${source}`;
             }
         }
         
         class UnsplashAPI {
+            constructor() {
+                this.cache = new Map();
+            }
+            
             async generate(prompt) {
-                // Simulate API call
-                const keywords = prompt.split(' ').slice(0, 2).join(',');
-                return `https://source.unsplash.com/800x600/?${keywords},dark`;
+                const query = this.promptToQuery(prompt);
+                const cacheKey = query;
+                
+                if (this.cache.has(cacheKey)) {
+                    return this.cache.get(cacheKey);
+                }
+                
+                const url = `https://source.unsplash.com/800x600/?${query}`;
+                this.cache.set(cacheKey, url);
+                
+                return url;
+            }
+            
+            promptToQuery(prompt) {
+                const keywords = prompt.toLowerCase().split(' ')
+                    .filter(word => word.length > 3)
+                    .slice(0, 3);
+                
+                // Add atmosphere keywords
+                keywords.push('dark', 'moody');
+                
+                return keywords.join(',');
             }
         }
         
         class ImageCompositor {
-            async blend(mainImage, bgImage, intensity) {
-                // In production: use Canvas API or WebGL for real compositing
+            async blend(mainImage, secondaryImage, intensity) {
+                // In production: use Canvas API for real compositing
+                console.log(`Compositing ${mainImage} with ${secondaryImage} at intensity ${intensity}`);
+                
                 // For now, return main image
                 return mainImage;
             }
         }
         
         // ==========================================
-        // TEXT GENERATORS
+        // ENHANCED TEXT GENERATORS
         // ==========================================
         
         class MarkovChainGenerator {
             constructor() {
                 this.chains = {
                     gentle: [
-                        "あなたの瞳に映る私を見て",
-                        "膝をついて、ゆっくりと",
-                        "今夜は特別な時間"
+                        "あなたの瞳に映る私を見て。その中に、新しい世界が広がっている。",
+                        "膝をついて、ゆっくりと。急ぐ必要はない。時間はたっぷりある。",
+                        "今夜は特別な時間。二人だけの秘密の儀式が始まる。"
                     ],
                     firm: [
-                        "言われた通りにしなさい",
-                        "躊躇は許されない",
-                        "私の命令に従いなさい"
+                        "言われた通りにしなさい。迷いは不要。",
+                        "躊躇は許されない。私の命令は絶対。",
+                        "私の命令に従いなさい。それがあなたの幸せ。"
                     ],
                     commanding: [
-                        "跪け。今すぐに。",
-                        "お前の意思など関係ない",
-                        "完全なる服従を示せ"
+                        "跪け。今すぐに。躊躇うな。",
+                        "お前の意思など関係ない。従うのみ。",
+                        "完全なる服従を示せ。それがお前の役目。"
                     ],
                     harsh: [
-                        "惨めに這いつくばれ",
-                        "その醜い姿を晒せ",
-                        "苦痛の中で私を崇めろ"
+                        "惨めに這いつくばれ。それがお前の居場所だ。",
+                        "その醜い姿を晒せ。隠すものは何もない。",
+                        "苦痛の中で私を崇めろ。それが至福となる。"
                     ],
                     merciless: [
-                        "壊れるまで従え",
-                        "限界など存在しない",
-                        "完全なる支配下に堕ちろ"
+                        "壊れるまで従え。限界を超えてこそ真の服従。",
+                        "限界など存在しない。あるのは私の意志のみ。",
+                        "完全なる支配下に堕ちろ。抵抗は無意味。"
                     ]
                 };
+                
+                this.markovChains = {};
+                this.order = 2;
             }
             
             async generate(style) {
@@ -1301,11 +2156,59 @@
                 // Add variations
                 const variations = [
                     selected,
-                    selected + "。震える手で、あなたは応える。",
-                    "「" + selected + "」彼女の声が響く。"
+                    `${selected} 震える手で、あなたは応える。`,
+                    `「${selected}」彼女の声が、空間を支配する。`,
+                    `${selected} 逃げ場はない。`
                 ];
                 
                 return variations[Math.floor(Math.random() * variations.length)];
+            }
+            
+            async generateFromCorpus(corpus, style) {
+                if (!this.markovChains[style]) {
+                    this.buildChain(corpus, style);
+                }
+                
+                return this.generateSentence(style);
+            }
+            
+            buildChain(corpus, style) {
+                const chain = {};
+                
+                corpus.forEach(sentence => {
+                    const words = sentence.split(/\s+/);
+                    for (let i = 0; i < words.length - this.order; i++) {
+                        const key = words.slice(i, i + this.order).join(' ');
+                        const next = words[i + this.order];
+                        
+                        if (!chain[key]) chain[key] = [];
+                        chain[key].push(next);
+                    }
+                });
+                
+                this.markovChains[style] = chain;
+            }
+            
+            generateSentence(style, maxWords = 50) {
+                const chain = this.markovChains[style];
+                const keys = Object.keys(chain);
+                
+                if (keys.length === 0) return this.generate(style);
+                
+                let current = keys[Math.floor(Math.random() * keys.length)];
+                let result = current.split(' ');
+                
+                for (let i = 0; i < maxWords - this.order; i++) {
+                    const possibilities = chain[current];
+                    if (!possibilities || possibilities.length === 0) break;
+                    
+                    const next = possibilities[Math.floor(Math.random() * possibilities.length)];
+                    result.push(next);
+                    
+                    current = result.slice(-this.order).join(' ');
+                }
+                
+                return result.join(' ');
             }
         }
         
@@ -1313,37 +2216,83 @@
             async refine(text, intensity) {
                 // Simulate GPT refinement
                 const intensityModifiers = {
-                    1: "優しく",
-                    2: "厳しく",
-                    3: "冷たく",
-                    4: "残酷に",
-                    5: "容赦なく"
+                    1: "優しく、しかし確実に",
+                    2: "厳しく、逃げ道を塞ぎながら",
+                    3: "冷たく、感情を排して",
+                    4: "残酷に、慈悲なく",
+                    5: "容赦なく、完全に"
                 };
                 
                 const modifier = intensityModifiers[intensity];
-                return `${text} 彼女は${modifier}微笑む。あなたの身体が、本能的に反応する。`;
+                const refined = `${text} 彼女は${modifier}命じる。その声には、抗えない力が宿っている。`;
+                
+                // Add psychological elements
+                const psychological = [
+                    "あなたの心が、少しずつ彼女に侵食されていく。",
+                    "抵抗しようとする意志が、霧のように消えていく。",
+                    "深い部分で、あなたは既に彼女のもの。",
+                    "理性の最後の砦が、音を立てて崩れ落ちる。"
+                ];
+                
+                return `${refined} ${psychological[Math.floor(Math.random() * psychological.length)]}`;
             }
         }
         
         class MistralAdapter {
             async intensify(text, intensity) {
                 // Simulate Mistral intensification
-                if (intensity >= 4) {
-                    text += " 逃げ場はない。完全なる支配の下で、あなたは新しい自分を発見する。";
+                let intensified = text;
+                
+                if (intensity >= 3) {
+                    // Add physical descriptions
+                    const physical = [
+                        "冷たい手が、あなたの頬を撫でる。",
+                        "革の感触が、肌に刻まれる。",
+                        "鎖の音が、静寂を破る。",
+                        "赤い爪が、あなたの顎を掴む。"
+                    ];
+                    intensified += ` ${physical[Math.floor(Math.random() * physical.length)]}`;
                 }
                 
-                return text;
+                if (intensity >= 4) {
+                    // Add emotional intensity
+                    intensified += " 逃げ場はない。完全なる支配の下で、あなたは新しい自分を発見する。";
+                }
+                
+                if (intensity === 5) {
+                    // Maximum intensity
+                    intensified = intensified.replace(/。/g, '！').toUpperCase();
+                }
+                
+                return intensified;
+            }
+        }
+        
+        class TextScraper {
+            async scrapeCorpus(url) {
+                // In production, this would actually scrape
+                // For demo, return sample corpus
+                return [
+                    "従順な犬のように、彼女の足元に跪く。",
+                    "鞭の音が響く度に、身体が震える。",
+                    "「もっと大きな声で懇願しなさい」",
+                    "赤いヒールが、ゆっくりと近づいてくる。",
+                    "縄が肌に食い込む感覚に、意識が遠のく。"
+                ];
             }
         }
         
         // ==========================================
-        // INITIALIZE ENGINE
+        // INITIALIZE ULTIMATE ENGINE
         // ==========================================
         
-        const engine = new ForbiddenEngine();
+        const engine = new ForbiddenEngineUltimate();
         
-        // Set initial scene count
-        engine.state.totalScenes = 5 + Math.floor(Math.random() * 4); // 5-8 scenes
+        // Load previous session data
+        engine.loadSessionData();
+        
+        // Set scene count based on intensity
+        engine.state.totalScenes = 5 + Math.floor(Math.random() * 5); // 5-9 scenes
         
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
@@ -1356,31 +2305,40 @@
             if (e.key === '+' || e.key === '=') {
                 engine.state.intensity = Math.min(5, engine.state.intensity + 1);
                 document.getElementById('dialValue').textContent = engine.state.intensity;
+                document.getElementById('intensityDial').dispatchEvent(new Event('change'));
             }
             if (e.key === '-' || e.key === '_') {
                 engine.state.intensity = Math.max(1, engine.state.intensity - 1);
                 document.getElementById('dialValue').textContent = engine.state.intensity;
+                document.getElementById('intensityDial').dispatchEvent(new Event('change'));
+            }
+            
+            // Secret shortcuts
+            if (e.key === 'x' && e.ctrlKey) {
+                // Extreme mode
+                engine.state.intensity = 5;
+                document.getElementById('dialValue').textContent = '5';
             }
         });
         
-        // Performance optimization
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                // Preload common images
-                const preloadImages = [
-                    'https://source.unsplash.com/800x600/?dark,room',
-                    'https://source.unsplash.com/800x600/?leather,black'
-                ];
-                
-                preloadImages.forEach(src => {
-                    const img = new Image();
-                    img.src = src;
-                });
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
             });
         }
         
-        console.log('Forbidden Stories v3 - Ultimate Engine Initialized');
-        console.log('Warning: This system pushes boundaries. Prepare for intensity.');
+        // Error boundary
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+            // Continue experience even with errors
+        });
+        
+        console.log('Forbidden Stories v3 ULTIMATE - All Systems Online');
+        console.log('Image Sources: E621, Danbooru, Unsplash, WaifuPics, StableDiffusion');
+        console.log('Text Engines: Markov, GPT, Mistral');
+        console.log('Ready for infinite unique experiences.');
     </script>
 </body>
 </html>
